@@ -19,6 +19,7 @@
   "homepage": "https://github.com/alok722/namaste-javascript-notes#readme",
   "dependencies": {
     "markdown-styles": "^3.2.0",
+    "pdf-merger-js": "^5.1.2",
     "pretty-markdown-pdf": "^1.5.2"
   },
   "devDependencies": {

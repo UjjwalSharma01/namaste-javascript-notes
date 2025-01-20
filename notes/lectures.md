@@ -1,11 +1,8 @@
-## title: Namaste JavaScript
-
-<br>
-
 # Episode 1 : Execution Context
 
-- Everything in JS happens inside the execution context. Imagine a sealed-off container inside which JS runs. It is an abstract concept that hold info about the env. within the current code is being executed.
-  ![Execution Context](../assets/execution-context.jpg "Execution Context")
+- Everything in JS happens inside the execution context. Imagine a sealed-off container inside which JS runs.
+  It is an abstract concept that hold info about the env. within the current code is being executed.
+  ![Execution Context](season-1/assets/execution-context.jpg "Execution Context")
 
 - In the container the first component is **memory component** and the 2nd one is **code component**
 
@@ -24,11 +21,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=ZvbzSrg0afE&list=PLlasXeu85E9cQ32gLCvAvr9vNaUccPVNP" target="_blank"><img src="https://img.youtube.com/vi/ZvbzSrg0afE/0.jpg" width="750"
 alt="Execution Context Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 2 : How JS is executed & Call Stack
 
@@ -51,29 +43,44 @@ var square2 = square(n);
 var square4 = square(4);
 ```
 
-The very **first** thing which JS does is **memory creation phase**, so it goes to line one of above code snippet, and **allocates a memory space** for variable **'n'** and then goes to line two, and **allocates a memory space** for **function 'square'**. When allocating memory **for n it stores 'undefined'**, a special value for 'n'. **For 'square', it stores the whole code of the function inside its memory space.** Then, as square2 and square4 are variables as well, it allocates memory and stores 'undefined' for them, and this is the end of first phase i.e. memory creation phase.
+The very **first** thing which JS does is **memory creation phase**, so it goes to line one of above code snippet, and **allocates a memory space** for variable **'n'** and then goes to line two, and **allocates a memory space** for **function 'square'**. When allocating memory **for n it stores 'undefined'**, a special value for 'n'. **For 'square', it stores the whole code (as ) of the function inside its memory space.** Then, as square2 and square4 are variables as well, it allocates memory and stores 'undefined' for them, and this is the end of first phase i.e. memory creation phase.
 
 So O/P will look something like
 
-![Execution Context Phase 1](../assets/phase1.jpg "Execution Context")
+![Execution Context Phase 1](season-1/assets/phase1.jpg "Execution Context")
 
 Now, in **2nd phase** i.e. code execution phase, it starts going through the whole code line by line. As it encounters var n = 2, it assigns 2 to 'n'. Until now, the value of 'n' was undefined. For function, there is nothing to execute. As these lines were already dealt with in memory creation phase.
 
 Coming to line 6 i.e. **var square2 = square(n)**, here **functions are a bit different than any other language. A new execution context is created altogether.** Again in this new execution context, in memory creation phase, we allocate memory to num and ans the two variables. And undefined is placed in them. Now, in code execution phase of this execution context, first 2 is assigned to num. Then var ans = num \* num will store 4 in ans. After that, return ans returns the control of program back to where this function was invoked from.
 
-![Execution Context Phase 2](../assets/phase2.jpg "Execution Context")
+![Execution Context Phase 2](season-1/assets/phase2.jpg "Execution Context")
 
 When **return** keyword is encountered, It returns the control to the called line and also **the function execution context is deleted**.
 Same thing will be repeated for square4 and then after that is finished, the global execution context will be destroyed.
 So the **final diagram** before deletion would look something like:
 
-![Execution Context Phase 2](../assets/final_execution_context.jpg "Execution Context")
+![Execution Context Phase 2](season-1/assets/final_execution_context.jpg "Execution Context")
 
 - Javascript manages code execution context creation and deletion with the the help of **Call Stack**.
 
 - Call Stack is a mechanism to keep track of its place in script that calls multiple function.
 
 - Call Stack maintains the order of execution of execution contexts. It is also known as Program Stack, Control Stack, Runtime stack, Machine Stack, Execution context stack.
+
+```
+Call Stack
+|-------------------|
+|                   |
+|                   |
+|                   |
+|                   |
+|                   |
+|-------------------|
+|     Square 2      | // this will get executed first and once done will be removed from stack
+|-------------------|
+|global exec contxt |
+|-------------------|
+```
 
 <hr>
 
@@ -82,15 +89,11 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=iLWTnMzWtj4&t=1s&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/iLWTnMzWtj4/0.jpg" width="750"
 alt="How JS is executed & Call Stack Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 3 : Hoisting in JavaScript (variables & functions)
 
 - Let's observe the below code and it's explaination:
+![Hoisting 1](season-1/assets/Hoisting1.png "Hoisting")
 
 ```js
 getName(); // Namaste Javascript
@@ -116,17 +119,34 @@ function getName() {
 }
 ```
 
+### Difference between undefined and not defined
+
+- **undefined** is a special value in JS which is assigned to a variable which is not assigned any value. It is a special value which is assigned by JS engine. this simply means that the variable is present within the code but you are accessing it before it is assigned any value.
+
+- **not defined** means that the variable is not present in the code. It is not defined in the code. It is not present in the memory allocated in the first phase of execution context.
+
 - Now let's observe a different example and try to understand the output.
 
 ```js
 getName(); // Uncaught TypeError: getName is not a function
 console.log(getName);
-var getName = function () {
+
+// way 1 to define function
+var getName = () => {
   console.log("Namaste JavaScript");
 };
-// The code won't execute as the first line itself throws an TypeError.
+
+
+// way 2 to define function
+var getName = function() {
+  console.log("Namaste JavaScript");
+};
+
+// in both the ways the behaviour will be same.
 ```
 
+
+Now in the above code the function get name is defined as an arrow function. Arrow functions are not hoisted in the same way as normal functions. they are treated like variables. So, in the above code, the function get name is treated as a variable and not a function. So, when we try to call the function before it is defined, it throws an error.
 <hr>
 
 Watch Live On Youtube below:
@@ -134,11 +154,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=Fnlnw8uY6jo&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/Fnlnw8uY6jo/0.jpg" width="750"
 alt="Hoisting Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 4 : Functions and Variable Environments
 
@@ -146,16 +161,16 @@ alt="Hoisting Youtube Link"/></a>
 var x = 1;
 a();
 b(); // we are calling the functions before defining them. This will work properly, as seen in Hoisting.
-console.log(x);
+console.log(x); // 3
 
 function a() {
-  var x = 10; // local scope because of separate execution context
-  console.log(x);
+  var x = 10; // localscope because of separate execution context
+  console.log(x); // 1
 }
 
 function b() {
   var x = 100;
-  console.log(x);
+  console.log(x); // 2
 }
 ```
 
@@ -191,7 +206,7 @@ Outputs:
 
 - reference:
 
-![Execution Context Phase 1](../assets/function.jpg "Execution Context")
+![Execution Context Phase 1](season-1/assets/function.jpg "Execution Context")
 
 <hr>
 
@@ -200,11 +215,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=gSDncyuGw0s&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/gSDncyuGw0s/0.jpg" width="750"
 alt="Functions and Variable Environments Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 5 : Shortest JS Program, window & this keyword
 
@@ -232,11 +242,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=QCRpVw2KXf8&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/QCRpVw2KXf8/0.jpg" width="750"
 alt="Shortest JS Program, window & this keyword Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 6 : undefined vs not defined in JS
 
@@ -267,11 +272,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=B7iF6G3EyIk&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/B7iF6G3EyIk/0.jpg" width="750"
 alt="undefined vs not defined in JS Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 7 : The Scope Chain, Scope & Lexical Environment
 
@@ -340,8 +340,8 @@ console.log(b); // Error, Not Defined
     a() = [b:10, c:{}, [lexical environment pointer pointing to GEC]]
     GEC =  [a:{},[lexical_environment pointer pointing to null]]
     ```
-    ![Lexical Scope Explaination](../assets/lexical.jpg "Lexical Scope")
-    ![Lexical Scope Explaination](../assets/lexical2.jpg "Lexical Scope")
+    ![Lexical Scope Explaination](season-1/assets/lexical.jpg "Lexical Scope")
+    ![Lexical Scope Explaination](season-1/assets/lexical2.jpg "Lexical Scope")
 
 <br>
 
@@ -382,29 +382,21 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=uH-tVP8MUs8&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/uH-tVP8MUs8/0.jpg" width="750"
 alt="The Scope Chain, Scope & Lexical Environment Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 8 : let & const in JS, Temporal Dead Zone
 
 - let and const declarations are hoisted. But its different from **var**
-
-```js
-console.log(a); // ReferenceError: Cannot access 'a' before initialization
-console.log(b); // prints undefined as expected
-let a = 10;
-console.log(a); // 10
-var b = 15;
-console.log(window.a); // undefined
-console.log(window.b); // 15
-```
-
-It looks like let isn't hoisted, **but it is**, let's understand
-
-- Both a and b are actually initialized as _undefined_ in hoisting stage. But var **b** is inside the storage space of GLOBAL, and **a** is in a separate memory object called script, where it can be accessed only after assigning some value to it first ie. one can access 'a' only if it is assigned. Thus, it throws error.
+  ```js
+  console.log(a); // ReferenceError: Cannot access 'a' before initialization
+  console.log(b); // prints undefined as expected
+  let a = 10;
+  console.log(a); // 10
+  var b = 15;
+  console.log(window.a); // undefined
+  console.log(window.b); // 15
+  ```
+  It looks like let isn't hoisted, **but it is**, let's understand
+  - Both a and b are actually initialized as _undefined_ in hoisting stage. But var **b** is inside the storage space of GLOBAL, and **a** is in a separate memory object called script, where it can be accessed only after assigning some value to it first ie. one can access 'a' only if it is assigned. Thus, it throws error.
 
 <br>
 
@@ -417,28 +409,28 @@ It looks like let isn't hoisted, **but it is**, let's understand
 
 - **Syntax Error** doesn't even let us run single line of code.
 
-```js
-let a = 10;
-let a = 100;  //this code is rejected upfront as SyntaxError. (duplicate declaration)
-------------------
-let a = 10;
-var a = 100; // this code also rejected upfront as SyntaxError. (can't use same name in same scope)
-```
+  - ```js
+      let a = 10;
+      let a = 100;  //this code is rejected upfront as SyntaxError. (duplicate declaration)
+      ------------------
+      let a = 10;
+      var a = 100; // this code also rejected upfront as SyntaxError. (can't use same name in same scope)
+    ```
 
 - **Let** is a stricter version of **var**. Now, **const** is even more stricter than **let**.
 
-```js
-let a;
-a = 10;
-console.log(a) // 10. Note declaration and assigning of a is in different lines.
-------------------
-const b;
-b = 10;
-console.log(b); // SyntaxError: Missing initializer in const declaration. (This type of declaration won't work with const. const b = 10 only will work)
-------------------
-const b = 100;
-b = 1000; //this gives us TypeError: Assignment to constant variable.
-```
+  ```js
+  let a;
+  a = 10;
+  console.log(a) // 10. Note declaration and assigning of a is in different lines.
+  ------------------
+  const b;
+  b = 10;
+  console.log(b); // SyntaxError: Missing initializer in const declaration. (This type of declaration won't work with const. const b = 10 only will work)
+  ------------------
+  const b = 100;
+  b = 1000; //this gives us TypeError: Assignment to constant variable.
+  ```
 
 - Types of **Error**: Syntax, Reference, and Type.
 
@@ -474,11 +466,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=BNC6slYCj50&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/BNC6slYCj50/0.jpg" width="750"
 alt="let & const in JS, Temporal Dead Zone Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 9 : Block Scope & Shadowing in JS
 
@@ -486,98 +473,96 @@ What is a **Block**?
 
 - Block aka _compound statement_ is used to group JS statements together into 1 group. We group them within {...}
 
-```js
-{
-  var a = 10;
-  let b = 20;
-  const c = 30;
-  // Here let and const are hoisted in Block scope,
-  // While, var is hoisted in Global scope.
-}
-```
+  ```js
+  {
+    var a = 10;
+    let b = 20;
+    const c = 30;
+    // Here let and const are hoisted in Block scope,
+    // While, var is hoisted in Global scope.
+  }
+  ```
 
 - Block Scope and its accessibility example
 
-```js
-{
-  var a = 10;
-  let b = 20;
-  const c = 30;
-}
-console.log(a); // 10
-console.log(b); // Uncaught ReferenceError: b is not defined
-```
+  ```js
+  {
+    var a = 10;
+    let b = 20;
+    const c = 30;
+  }
+  console.log(a); // 10
+  console.log(b); // Uncaught ReferenceError: b is not defined
+  ```
 
-    * Reason?
-        * In the BLOCK SCOPE; we get b and c inside it initialized as *undefined* as a part of hoisting (in a seperate memory space called **block**)
-        * While, a is stored inside a GLOBAL scope.
+  - Reason?
 
-        * Thus we say, *let* and *const* are BLOCK SCOPED. They are stored in a separate mem space which is reserved for this block. Also, they can't be accessed outside this block. But var a can be accessed anywhere as it is in global scope. Thus, we can't access them outside the Block.
+    - In the BLOCK SCOPE; we get b and c inside it initialized as _undefined_ as a part of hoisting (in a seperate memory space called **block**)
+    - While, a is stored inside a GLOBAL scope.
+
+    - Thus we say, _let_ and _const_ are BLOCK SCOPED. They are stored in a separate mem space which is reserved for this block. Also, they can't be accessed outside this block. But var a can be accessed anywhere as it is in global scope. Thus, we can't access them outside the Block.
 
 What is **Shadowing**?
 
-```js
-var a = 100;
-{
-  var a = 10; // same name as global var
-  let b = 20;
-  const c = 30;
-  console.log(a); // 10
-  console.log(b); // 20
-  console.log(c); // 30
-}
-console.log(a); // 10, instead of the 100 we were expecting. So block "a" modified val of global "a" as well. In console, only b and c are in block space. a initially is in global space(a = 100), and when a = 10 line is run, a is not created in block space, but replaces 100 with 10 in global space itself.
-```
+- ```js
+  var a = 100;
+  {
+    var a = 10; // same name as global var
+    let b = 20;
+    const c = 30;
+    console.log(a); // 10
+    console.log(b); // 20
+    console.log(c); // 30
+  }
+  console.log(a); // 10, instead of the 100 we were expecting. So block "a" modified val of global "a" as well. In console, only b and c are in block space. a initially is in global space(a = 100), and when a = 10 line is run, a is not created in block space, but replaces 100 with 10 in global space itself.
+  ```
 
 - So, If one has same named variable outside the block, the variable inside the block _shadows_ the outside variable. **This happens only for var**
 
 - Let's observe the behaviour in case of let and const and understand it's reason.
 
-```js
-let b = 100;
-{
-  var a = 10;
-  let b = 20;
-  const c = 30;
-  console.log(b); // 20
-}
-console.log(b); // 100, Both b's are in separate spaces (one in Block(20) and one in Script(another arbitrary mem space)(100)). Same is also true for *const* declarations.
-```
+  ```js
+  let b = 100;
+  {
+    var a = 10;
+    let b = 20;
+    const c = 30;
+    console.log(b); // 20
+  }
+  console.log(b); // 100, Both b's are in separate spaces (one in Block(20) and one in Script(another arbitrary mem space)(100)). Same is also true for *const* declarations.
+  ```
 
-![Block Scope Explaination](../assets/scope.jpg "Lexical Scope")
+  ![Block Scope Explaination](season-1/assets/scope.jpg "Lexical Scope")
 
 - Same logic is true even for **functions**
-
-```js
-const c = 100;
-function x() {
-  const c = 10;
-  console.log(c); // 10
-}
-x();
-console.log(c); // 100
-```
+  ```js
+  const c = 100;
+  function x() {
+    const c = 10;
+    console.log(c); // 10
+  }
+  x();
+  console.log(c); // 100
+  ```
 
 What is **Illegal Shadowing**?
 
-```js
-let a = 20;
-{
-  var a = 20;
-}
-// Uncaught SyntaxError: Identifier 'a' has already been declared
-```
-
-- We cannot shadow let with var. But it is **valid** to shadow a let using a let. However, we can shadow var with let.
-- All scope rules that work in function are same in arrow functions too.
-- Since var is function scoped, it is not a problem with the code below.
-
-```js
-let a = 20;
-function x() {
-  var a = 20;
-}
-```
+- ```js
+  let a = 20;
+  {
+    var a = 20;
+  }
+  // Uncaught SyntaxError: Identifier 'a' has already been declared
+  ```
+  - We cannot shadow let with var. But it is **valid** to shadow a let using a let. However, we can shadow var with let.
+  - All scope rules that work in function are same in arrow functions too.
+  - Since var is function scoped, it is not a problem with the code below.
+    ```js
+    let a = 20;
+    function x() {
+      var a = 20;
+    }
+    ```
 
 <hr>
 
@@ -586,11 +571,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=lW_erSjyMeM&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/lW_erSjyMeM/0.jpg" width="750"
 alt="Block Scope & Shadowing in JS Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 10 : Closures in JS
 
@@ -612,30 +592,31 @@ alt="Block Scope & Shadowing in JS Youtube Link"/></a>
 
   - In above code, When y is returned, not only is the function returned but the entire closure (fun y + its lexical scope) is returned and put inside z. So when z is used somewhere else in program, it still remembers var a inside x()
 
-  - Another Example
-    ```js
-    function z() {
-      var b = 900;
-      function x() {
-        var a = 7;
-        function y() {
-          console.log(a, b);
-        }
-        y();
-      }
-      x();
+- Another Example
+
+```js
+function z() {
+  var b = 900;
+  function x() {
+    var a = 7;
+    function y() {
+      console.log(a, b);
     }
-    z(); // 7 900
-    ```
+    y();
+  }
+  x();
+}
+z(); // 7 900
+```
 
 - Thus In simple words, we can say:
   - **\*A closure is a function** that has access to its outer function scope even after the function has returned. Meaning, A closure can remember and access variables and arguments reference of its outer function even after the function has returned.\*
 
 <br>
 
-- ![Closure Explaination](../assets/closure.jpg "Lexical Scope")
+- ![Closure Explaination](season-1/assets/closure.jpg "Lexical Scope")
 
-- Advantages of Closure:
+* Advantages of Closure:
 
       Certainly! Let's explore examples for each of the advantages you've
       mentioned:
@@ -774,34 +755,29 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=qikxEIxsXco&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/qikxEIxsXco/0.jpg" width="750"
 alt="Closure in JS Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 11 : setTimeout + Closures Interview Question
 
 > **Time, tide and Javascript wait for none.**
 
-```js
-function x() {
-  var i = 1;
-  setTimeout(function () {
-    console.log(i);
-  }, 3000);
-  console.log("Namaste Javascript");
-}
-x();
-// Output:
-// Namaste Javascript
-// 1 // after waiting 3 seconds
-```
+- ```js
+  function x() {
+    var i = 1;
+    setTimeout(function () {
+      console.log(i);
+    }, 3000);
+    console.log("Namaste Javascript");
+  }
+  x();
+  // Output:
+  // Namaste Javascript
+  // 1 // after waiting 3 seconds
+  ```
 
-- We expect JS to wait 3 sec, print 1 and then go down and print the string. But JS prints string immediately, waits 3 sec and then prints 1.
-- The function inside setTimeout forms a closure (remembers reference to i). So wherever function goes it carries this ref along with it.
-- setTimeout takes this callback function & attaches timer of 3000ms and stores it. Goes to next line without waiting and prints string.
-- After 3000ms runs out, JS takes function, puts it into call stack and runs it.
+  - We expect JS to wait 3 sec, print 1 and then go down and print the string. But JS prints string immediately, waits 3 sec and then prints 1.
+  - The function inside setTimeout forms a closure (remembers reference to i). So wherever function goes it carries this ref along with it.
+  - setTimeout takes this callback function & attaches timer of 3000ms and stores it. Goes to next line without waiting and prints string.
+  - After 3000ms runs out, JS takes function, puts it into call stack and runs it.
 
 - Q: Print 1 after 1 sec, 2 after 2 sec till 5 : Tricky interview question
 
@@ -857,11 +833,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=eBTBG4nda2A&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/eBTBG4nda2A/0.jpg" width="750"
 alt="setTimeout + Closures Interview Question in JS Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 12 : Famous Interview Questions ft. Closures
 
@@ -1064,11 +1035,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=t1nFAMws5FI&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/t1nFAMws5FI/0.jpg" width="750"
 alt="Closures Interview Question in JS Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 13 : First Class Functions ft. Anonymous Functions
 
@@ -1184,11 +1150,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=SHINoHxvTso&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/SHINoHxvTso/0.jpg" width="750"
 alt="First Class Functions ft. Anonymous Functions in JS Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 14 : Callback Functions in JS ft. Event Listeners
 
@@ -1204,57 +1165,57 @@ setTimeout(function () {
 
 - JS is a synchronous and single threaded language. But due to callbacks, we can do async things in JS.
 
-```js
-setTimeout(function () {
-  console.log("timer");
-}, 5000);
-function x(y) {
-  console.log("x");
-  y();
-}
-x(function y() {
-  console.log("y");
-});
-// x y timer
-```
-
-- In the call stack, first x and y are present. After code execution, they go away and stack is empty. Then after 5 seconds (from beginning) anonymous suddenly appear up in stack ie. setTimeout
-- All 3 functions are executed through call stack. If any operation blocks the call stack, its called blocking the main thread.
-- Say if x() takes 30 sec to run, then JS has to wait for it to finish as it has only 1 call stack/1 main thread. Never block main thread.
-- Always use **async** for functions that take time eg. setTimeout
-
-```js
-// Another Example of callback
-function printStr(str, cb) {
-  setTimeout(() => {
-    console.log(str);
-    cb();
-  }, Math.floor(Math.random() * 100) + 1);
-}
-function printAll() {
-  printStr("A", () => {
-    printStr("B", () => {
-      printStr("C", () => {});
-    });
+- ```js
+  setTimeout(function () {
+    console.log("timer");
+  }, 5000);
+  function x(y) {
+    console.log("x");
+    y();
+  }
+  x(function y() {
+    console.log("y");
   });
-}
-printAll(); // A B C // in order
-```
+  // x y timer
+  ```
+
+  - In the call stack, first x and y are present. After code execution, they go away and stack is empty. Then after 5 seconds (from beginning) anonymous suddenly appear up in stack ie. setTimeout
+  - All 3 functions are executed through call stack. If any operation blocks the call stack, its called blocking the main thread.
+  - Say if x() takes 30 sec to run, then JS has to wait for it to finish as it has only 1 call stack/1 main thread. Never block main thread.
+  - Always use **async** for functions that take time eg. setTimeout
+
+- ```js
+  // Another Example of callback
+  function printStr(str, cb) {
+    setTimeout(() => {
+      console.log(str);
+      cb();
+    }, Math.floor(Math.random() * 100) + 1);
+  }
+  function printAll() {
+    printStr("A", () => {
+      printStr("B", () => {
+        printStr("C", () => {});
+      });
+    });
+  }
+  printAll(); // A B C // in order
+  ```
 
 ### Event Listener
 
 - We will create a button in html and attach event to it.
 
-```js
-// index.html
-<button id="clickMe">Click Me!</button>;
+  ```js
+  // index.html
+  <button id="clickMe">Click Me!</button>;
 
-// in index.js
-document.getElementById("clickMe").addEventListener("click", function xyz() {
-  //when event click occurs, this callback function (xyz) is called into callstack
-  console.log("Button clicked");
-});
-```
+  // in index.js
+  document.getElementById("clickMe").addEventListener("click", function xyz() {
+    //when event click occurs, this callback function (xyz) is called into callstack
+    console.log("Button clicked");
+  });
+  ```
 
 - Lets implement a increment counter button.
   - Using global variable (not good as anyone can change it)
@@ -1279,7 +1240,7 @@ document.getElementById("clickMe").addEventListener("click", function xyz() {
     }
     attachEventList();
     ```
-    ![Event Listerner Demo](../assets/event.jpg)
+    ![Event Listerner Demo](season-1/assets/event.jpg)
 
 ### Garbage Collection and removeEventListeners
 
@@ -1292,11 +1253,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=btj35dh3_U8&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/btj35dh3_U8/0.jpg" width="750"
 alt="Callback Functions in JS ft. Event Listeners in JS Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 15 : Asynchronous JavaScript & EVENT LOOP from scratch
 
@@ -1305,12 +1261,12 @@ alt="Callback Functions in JS ft. Event Listeners in JS Youtube Link"/></a>
 - Browser has JS Engine which has Call Stack which has Global execution context, local execution context etc.
   - But browser has many other superpowers - Local storage space, Timer, place to enter URL, Bluetooth access, Geolocation access and so on.
   - Now JS needs some way to connect the callstack with all these superpowers. This is done using Web APIs.
-    ![Event Loop 1 Demo](../assets/eventloop1.jpg)
+    ![Event Loop 1 Demo](season-1/assets/eventloop1.jpg)
 
 ### WebAPIs
 
 None of the below are part of Javascript! These are extra superpowers that browser has. Browser gives access to JS callstack to use these powers.
-![Event Loop 2 Demo](../assets/eventloop2.jpg)
+![Event Loop 2 Demo](season-1/assets/eventloop2.jpg)
 
 - setTimeout(), DOM APIs, fetch(), localstorage, console (yes, even console.log is not JS!!), location and so many more.
 
@@ -1324,7 +1280,7 @@ None of the below are part of Javascript! These are extra superpowers that brows
   - As window is global obj, and all the above functions are present in global object, we don't explicity write window but it is implied.
 
 - Let's undertand the below code image and its explaination:
-  ![Event Loop 3 Demo](../assets/eventloop3.jpg)
+  ![Event Loop 3 Demo](season-1/assets/eventloop3.jpg)
   - ```js
     console.log("start");
     setTimeout(function cb() {
@@ -1347,12 +1303,12 @@ Q: How after 5 secs timer is console?
 - cb() cannot simply directly go to callstack to be execeuted. It goes through the callback queue when timer expires.
 - Event loop keep checking the callback queue, and see if it has any element to puts it into call stack. It is like a gate keeper.
 - Once cb() is in callback queue, eventloop pushes it to callstack to run. Console API is used and log printed
-- ![Event Loop 4 Demo](../assets/eventloop4.jpg)
+- ![Event Loop 4 Demo](season-1/assets/eventloop4.jpg)
 
 Q: Another example to understand Eventloop & Callback Queue.
 
 See the below Image and code and try to understand the reason:
-![Event Loop 5 Demo](../assets/eventloop5.jpg)
+![Event Loop 5 Demo](season-1/assets/eventloop5.jpg)
 Explaination?
 
 - ```js
@@ -1400,9 +1356,9 @@ Code Explaination:
 * See below Image for more understanding
 ```
 
-![Event Loop 6 Demo](../assets/eventloop6.jpg)
+![Event Loop 6 Demo](season-1/assets/eventloop6.jpg)
 Microtask Priority Visualization
-![Event Loop 7 Demo](../assets/microtask.gif)
+![Event Loop 7 Demo](season-1/assets/microtask.gif)
 
 #### What enters the Microtask Queue ?
 
@@ -1426,12 +1382,12 @@ Microtask Priority Visualization
 
 ### Observation of Eventloop, Callback Queue & Microtask Queue [**GiF**]
 
-![microtask 1 Demo](../assets/microtask1.gif)
-![microtask 2 Demo](../assets/microtask2.gif)
-![microtask 3 Demo](../assets/microtask3.gif)
-![microtask 4 Demo](../assets/microtask4.gif)
-![microtask 5 Demo](../assets/microtask5.gif)
-![microtask 6 Demo](../assets/microtask6.gif)
+![microtask 1 Demo](season-1/assets/microtask1.gif)
+![microtask 2 Demo](season-1/assets/microtask2.gif)
+![microtask 3 Demo](season-1/assets/microtask3.gif)
+![microtask 4 Demo](season-1/assets/microtask4.gif)
+![microtask 5 Demo](season-1/assets/microtask5.gif)
+![microtask 6 Demo](season-1/assets/microtask6.gif)
 
 <hr>
 
@@ -1440,11 +1396,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=8zKuNo4ay8E&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/8zKuNo4ay8E/0.jpg" width="750"
 alt="Asynchronous JavaScript & EVENT LOOP from scratch in JS Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 16 : JS Engine Exposed, Google's V8 Architecture
 
@@ -1465,14 +1416,14 @@ alt="Asynchronous JavaScript & EVENT LOOP from scratch in JS Youtube Link"/></a>
   1. **Parsing** - Code is broken down into tokens. In "let a = 7" -> let, a, =, 7 are all tokens. Also we have a syntax parser that takes code and converts it into an AST (Abstract Syntax Tree) which is a JSON with all key values like type, start, end, body etc (looks like package.json but for a line of code in JS. Kinda unimportant)(Check out astexplorer.net -> converts line of code into AST).
   2. **Compilation** - JS has something called Just-in-time(JIT) Compilation - uses both interpreter & compiler. Also compilation and execution both go hand in hand. The AST from previous step goes to interpreter which converts hi-level code to byte code and moves to execeution. While interpreting, compiler also works hand in hand to compile and form optimized code during runtime. **Does JavaScript really Compiles?** The answer is a loud **YES**. More info at: [Link 1](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/get-started/ch1.md#whats-in-an-interpretation), [Link 2](https://web.stanford.edu/class/cs98si/slides/overview.html), [Link 3](https://blog.greenroots.info/javascript-interpreted-or-compiled-the-debate-is-over-ckb092cv302mtl6s17t14hq1j). JS used to be only interpreter in old times, but now has both to compile and interpreter code and this make JS a JIT compiled language, its like best of both world.
   3. **Execution** - Needs 2 components ie. Memory heap(place where all memory is stored) and Call Stack(same call stack from prev episodes). There is also a garbage collector. It uses an algo called **Mark and Sweep**.
-     ![JS Engine Demo](../assets/jsengine.jpg)
+     ![JS Engine Demo](season-1/assets/jsengine.jpg)
      GiF Demo
-     ![JS Engine Demo](../assets/jsenginegif.gif)
+     ![JS Engine Demo](season-1/assets/jsenginegif.gif)
 
 - Companies use different JS engines and each try to make theirs the best.
   - v8 of Google has Interpreter called Ignition, a compiler called Turbo Fan and garbage collector called Orinoco
   - v8 architecture:
-    ![JS Engine Demo](../assets/jsengine.png)
+    ![JS Engine Demo](season-1/assets/jsengine.png)
 
 <hr>
 
@@ -1481,11 +1432,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=2WJL19wDH68&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/2WJL19wDH68/0.jpg" width="750"
 alt="JS Engine Exposed, Google's V8 Architecture in JS Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 17 : Trust issues with setTimeout()
 
@@ -1518,7 +1464,7 @@ alt="JS Engine Exposed, Google's V8 Architecture in JS Youtube Link"/></a>
 - The First rule of JavaScript: Do not **block the main thread** (as JS is a single threaded(only 1 callstack) language).
 
 - In below example, we are blocking the main thread. Observe Questiona and Output.
-  ![setTimeout Demo](../assets/settimeout1.jpg)
+  ![setTimeout Demo](season-1/assets/settimeout1.jpg)
 
 - setTimeout guarantees that it will take at least the given timer to execute the code.
 
@@ -1543,26 +1489,21 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=nqsPmuicJJc&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/nqsPmuicJJc/0.jpg" width="750"
 alt="Trust issues with setTimeout() in JS Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 18 : Higher-Order Functions ft. Functional Programming
 
 ### Q: What is Higher Order Function?
 
-**Ans**: A Higher-order functions are regular functions that take other functions as arguments or return functions as their results. Eg:
+**Ans**: Higher-order functions are regular functions that take one or more functions as arguments and/or return functions as a value from it. Eg:
 
 ```js
 function x() {
-    console.log("Hi)";
-};
+  console.log("Hi");
+}
 function y(x) {
-    x();
-};
-y(); // Hi
+  x();
+}
+y(x); // Hi
 // y is a higher order function
 // x is a callback function
 ```
@@ -1649,11 +1590,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=HkWxvB1RJq0&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/HkWxvB1RJq0/0.jpg" width="750"
 alt="Higher-Order Functions ft. Functional Programming in JS Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 19 : map, filter & reduce
 
@@ -1809,6 +1745,7 @@ const report = users.reduce((acc, curr) => {
 	} else {
 		acc[curr.age] = 1;
 	}
+
 	return acc;  //to every time return update object
 }, {})
 console.log(report) // {29 : 2, 75 : 1, 50 : 1}
@@ -1848,11 +1785,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=zdp0zrpKzIE&list=PLlasXeu85E9cQ32gLCvAvr9vNaUccPVNP" target="_blank"><img src="https://img.youtube.com/vi/zdp0zrpKzIE/0.jpg" width="750"
 alt="map, filter & reduce Youtube Link"/></a>
 
-<br>
-
-<hr>
-
-<br>
 
 # Episode 20 : Callback
 
@@ -1970,14 +1902,13 @@ api.createOrder(cart, function () {
 
 more at `http://callbackhell.com/`
 
+<hr>
+
 Watch Live On Youtube below:
 
 <a href="https://www.youtube.com/watch?v=yEKtJGha3yM&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX" target="_blank"><img src="https://img.youtube.com/vi/yEKtJGha3yM/0.jpg" width="750"
-alt="map, filter & reduce Youtube Link"/></a>
+alt="callback Youtube Link"/></a>
 
-<br>
-
-<hr>
 
 # Episode 21 : Promises
 
@@ -2165,9 +2096,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=ap-6PPAuK1Y&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=3&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/ap-6PPAuK1Y/0.jpg" width="750"
 alt="promise in Javascript Youtube Link"/></a>
 
-<br>
-
-<hr>
 
 # Episode 22 : Creating a Promise, Chaining & Error Handling
 
@@ -2373,9 +2301,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=U74BJcr8NeQ&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/U74BJcr8NeQ/0.jpg" width="750"
 alt="promise in Javascript Youtube Link"/></a>
 
-<br>
-
-<hr>
 
 # Episode 23 : async await
 
@@ -2627,9 +2552,6 @@ Watch Live On Youtube below:
 <a href="https://www.youtube.com/watch?v=6nv3qy3oNkc&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/6nv3qy3oNkc/0.jpg" width="750"
 alt="async-await in Javascript Youtube Link"/></a>
 
-<br>
-
-<hr>
 
 # Episode 24 : Promise APIs (all, allSettled, race, any) + Interview Questions 🔥
 
@@ -2949,11 +2871,8 @@ There are 6 static methods of Promise class:
 Watch Live On Youtube below:
 
 <a href="https://www.youtube.com/watch?v=DlTVt1rZjIo&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/DlTVt1rZjIo/0.jpg" width="750"
-alt="promise-apis in Javascript Youtube Link"/></a>
+alt="async-await in Javascript Youtube Link"/></a>
 
-<br>
-
-<hr>
 
 # Episode 25 : `this` keyword in JavaScript
 
@@ -3081,5 +3000,3 @@ Watch Live On Youtube below:
 
 <a href="https://www.youtube.com/watch?v=9T4z98JcHR0&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/9T4z98JcHR0/0.jpg" width="750"
 alt="this keyword in Javascript Youtube Link"/></a>
-
-To Be Continued...
