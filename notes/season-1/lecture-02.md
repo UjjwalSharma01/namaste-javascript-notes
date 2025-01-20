@@ -19,7 +19,7 @@ var square2 = square(n);
 var square4 = square(4);
 ```
 
-The very **first** thing which JS does is **memory creation phase**, so it goes to line one of above code snippet, and **allocates a memory space** for variable **'n'** and then goes to line two, and **allocates a memory space** for **function 'square'**. When allocating memory **for n it stores 'undefined'**, a special value for 'n'. **For 'square', it stores the whole code of the function inside its memory space.** Then, as square2 and square4 are variables as well, it allocates memory and stores 'undefined' for them, and this is the end of first phase i.e. memory creation phase.
+The very **first** thing which JS does is **memory creation phase**, so it goes to line one of above code snippet, and **allocates a memory space** for variable **'n'** and then goes to line two, and **allocates a memory space** for **function 'square'**. When allocating memory **for n it stores 'undefined'**, a special value for 'n'. **For 'square', it stores the whole code (as ) of the function inside its memory space.** Then, as square2 and square4 are variables as well, it allocates memory and stores 'undefined' for them, and this is the end of first phase i.e. memory creation phase.
 
 So O/P will look something like
 
@@ -42,6 +42,21 @@ So the **final diagram** before deletion would look something like:
 - Call Stack is a mechanism to keep track of its place in script that calls multiple function.
 
 - Call Stack maintains the order of execution of execution contexts. It is also known as Program Stack, Control Stack, Runtime stack, Machine Stack, Execution context stack.
+
+```
+Call Stack
+|-------------------|
+|                   |
+|                   |
+|                   |
+|                   |
+|                   |
+|-------------------|
+|     Square 2      | // this will get executed first and once done will be removed from stack
+|-------------------|
+|global exec contxt |
+|-------------------|
+```
 
 <hr>
 

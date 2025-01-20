@@ -1,6 +1,7 @@
 # Episode 3 : Hoisting in JavaScript (variables & functions)
 
 - Let's observe the below code and it's explaination:
+![Hoisting 1](/assets/Hoisting1.png "Hoisting")
 
 ```js
 getName(); // Namaste Javascript
@@ -26,17 +27,34 @@ function getName() {
 }
 ```
 
+### Difference between undefined and not defined
+
+- **undefined** is a special value in JS which is assigned to a variable which is not assigned any value. It is a special value which is assigned by JS engine. this simply means that the variable is present within the code but you are accessing it before it is assigned any value.
+
+- **not defined** means that the variable is not present in the code. It is not defined in the code. It is not present in the memory allocated in the first phase of execution context.
+
 - Now let's observe a different example and try to understand the output.
 
 ```js
 getName(); // Uncaught TypeError: getName is not a function
 console.log(getName);
-var getName = function () {
+
+// way 1 to define function
+var getName = () => {
   console.log("Namaste JavaScript");
 };
-// The code won't execute as the first line itself throws an TypeError.
+
+
+// way 2 to define function
+var getName = function() {
+  console.log("Namaste JavaScript");
+};
+
+// in both the ways the behaviour will be same.
 ```
 
+
+Now in the above code the function get name is defined as an arrow function. Arrow functions are not hoisted in the same way as normal functions. they are treated like variables. So, in the above code, the function get name is treated as a variable and not a function. So, when we try to call the function before it is defined, it throws an error.
 <hr>
 
 Watch Live On Youtube below:
