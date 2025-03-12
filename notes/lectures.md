@@ -65,8 +65,9 @@ So the **final diagram** before deletion would look something like:
 
 - Call Stack is a mechanism to keep track of its place in script that calls multiple function.
 
-- Call Stack maintains the order of execution of execution contexts. It is also known as Program Stack, Control Stack, Runtime stack, Machine Stack, Execution context stack.
+- __Call Stack maintains the order of execution of execution contexts__. It is also known as Program Stack, Control Stack, Runtime stack, Machine Stack, Execution context stack.
 
+![Call Stack](/assets/CallStack.jpg "Call Stack")
 ```
 Call Stack
 |-------------------|
@@ -104,9 +105,30 @@ function getName() {
 }
 ```
 
-- It should have been an outright error in many other languages, as it is not possible to even access something which is not even created (defined) yet But in JS, We know that in memory creation phase it assigns undefined and puts the content of function to function's memory. And in execution, it then executes whatever is asked. Here, as execution goes line by line and not after compiling, it could only print undefined and nothing else. This phenomenon, is not an error. However, if we remove var x = 7; then it gives error. Uncaught ReferenceError: x is not defined
+- It should have been an outright error in many other languages, as it is not possible to even access something which is not even created (defined) yet But in JS, We know that in memory creation phase it assigns undefined and puts the content of function to function's memory. And in execution, it then executes whatever is asked. Here, as execution goes line by line and not after compiling, it could only print undefined and nothing else. This phenomenon, is not an error. However, if we remove var x = 7; then it gives error. <span style="color: red;">Uncaught ReferenceError: x is not defined</span>
 
 - **Hoisting** is a concept which enables us to extract values of variables and functions even before initialising/assigning value without getting error and this is happening due to the 1st phase (memory creation phase) of the Execution Context.
+
+- if i allocate the function to a variable or if it's a arrow function then it will not be assigned the entire code structure during the memory creation phase. It will be assigned as undefined. Example:
+
+```js
+getName(); // Uncaught TypeError: getName is not a function
+console.log(getName);
+var getName = () => {
+  console.log("Namaste JavaScript");
+};
+```
+
+or
+
+```js
+getName(); // Uncaught TypeError: getName is not a function
+console.log(getName);
+var getName = function() {
+  console.log("Namaste JavaScript");
+};
+```
+
 
 - So in previous lecture, we learnt that execution context gets created in two phase, so even before code execution, memory is created so in case of variable, it will be initialized as undefined while in case of function the whole function code is placed in the memory. Example:
 
@@ -116,6 +138,15 @@ console.log(x); // Uncaught Reference: x is not defined.
 console.log(getName); // f getName(){ console.log("Namaste JavaScript); }
 function getName() {
   console.log("Namaste JavaScript");
+}
+```
+in this case the memory would something like this:
+```js
+{
+  getName: function getName() {
+    console.log("Namaste JavaScript");
+  },
+  x: undefined
 }
 ```
 
