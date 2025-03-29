@@ -284,6 +284,8 @@ alt="Shortest JS Program, window & this keyword Youtube Link"/></a>
 
 - Not Defined !== Undefined
 
+- Undefined is just a placeholder, which is assigned to the variable just for the time being until the value is assigned.
+
 > When variable is declared but not assigned value, its current value is **undefined**. But when the variable itself is not declared but called in code, then it is **not defined**.
 
 ```js
@@ -293,8 +295,8 @@ console.log(x); // 25
 console.log(a); // Uncaught ReferenceError: a is not defined
 ```
 
-- JS is a **loosely typed / weakly typed** language. It doesn't attach variables to any datatype. We can say _var a = 5_, and then change the value to boolean _a = true_ or string _a = 'hello'_ later on.
-- **Never** assign _undefined_ to a variable manually. Let it happen on it's own accord.
+- JS is a **loosely typed / weakly typed** language. It doesn't attach variables to any datatype. We can say _var a = 5_, and then change the value to boolean _a = true_ or string _a = 'hello'_ later on for the same variable.
+- You can assign the _undefined_ value to any variable within the JS but **Never** assign _undefined_ manually. Let it happen on it's own accord as it's a bad practice which may lead to a lot of inconsistencies.
 
 <hr>
 
