@@ -66,9 +66,10 @@ So the <strong>final diagram</strong> before deletion would look something like:
 </li>
 <li><p>Call Stack is a mechanism to keep track of its place in script that calls multiple function.</p>
 </li>
-<li><p>Call Stack maintains the order of execution of execution contexts. It is also known as Program Stack, Control Stack, Runtime stack, Machine Stack, Execution context stack.</p>
+<li><p><strong>Call Stack maintains the order of execution of execution contexts</strong>. It is also known as Program Stack, Control Stack, Runtime stack, Machine Stack, Execution context stack.</p>
 </li>
 </ul>
+<p class="img-container"><img src="/assets/CallStack.jpg" alt="Call Stack" title="Call Stack"></p>
 <pre class="hljs"><code>Call Stack
 |<span class="hljs-string">-------------------</span>|
 |<span class="hljs-string">                   </span>|
@@ -96,18 +97,36 @@ alt="How JS is executed & Call Stack Youtube Link"/></a></p>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getName</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Namaste Javascript&quot;</span>);
 }</code></pre><ul class="list">
-<li><p>It should have been an outright error in many other languages, as it is not possible to even access something which is not even created (defined) yet But in JS, We know that in memory creation phase it assigns undefined and puts the content of function to function&#39;s memory. And in execution, it then executes whatever is asked. Here, as execution goes line by line and not after compiling, it could only print undefined and nothing else. This phenomenon, is not an error. However, if we remove var x = 7; then it gives error. Uncaught ReferenceError: x is not defined</p>
+<li><p>It should have been an outright error in many other languages, as it is not possible to even access something which is not even created (defined) yet But in JS, We know that in memory creation phase it assigns undefined and puts the content of function to function&#39;s memory. And in execution, it then executes whatever is asked. Here, as execution goes line by line and not after compiling, it could only print undefined and nothing else. This phenomenon, is not an error. However, if we remove var x = 7; then it gives error. <span style="color: red;">Uncaught ReferenceError: x is not defined</span></p>
 </li>
 <li><p><strong>Hoisting</strong> is a concept which enables us to extract values of variables and functions even before initialising/assigning value without getting error and this is happening due to the 1st phase (memory creation phase) of the Execution Context.</p>
 </li>
-<li><p>So in previous lecture, we learnt that execution context gets created in two phase, so even before code execution, memory is created so in case of variable, it will be initialized as undefined while in case of function the whole function code is placed in the memory. Example:</p>
+<li><p>if i allocate the function to a variable or if it&#39;s a arrow function then it will not be assigned the entire code structure during the memory creation phase. It will be assigned as undefined. Example:</p>
 </li>
+</ul>
+<pre class="hljs"><code>getName(); <span class="hljs-comment">// Uncaught TypeError: getName is not a function</span>
+<span class="hljs-built_in">console</span>.log(getName);
+<span class="hljs-keyword">var</span> getName = <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Namaste JavaScript&quot;</span>);
+};</code></pre><p>or</p>
+<pre class="hljs"><code>getName(); <span class="hljs-comment">// Uncaught TypeError: getName is not a function</span>
+<span class="hljs-built_in">console</span>.log(getName);
+<span class="hljs-keyword">var</span> getName = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Namaste JavaScript&quot;</span>);
+};</code></pre><ul class="list">
+<li>So in previous lecture, we learnt that execution context gets created in two phase, so even before code execution, memory is created so in case of variable, it will be initialized as undefined while in case of function the whole function code is placed in the memory. Example:</li>
 </ul>
 <pre class="hljs"><code>getName(); <span class="hljs-comment">// Namaste JavaScript</span>
 <span class="hljs-built_in">console</span>.log(x); <span class="hljs-comment">// Uncaught Reference: x is not defined.</span>
 <span class="hljs-built_in">console</span>.log(getName); <span class="hljs-comment">// f getName(){ console.log(&quot;Namaste JavaScript); }</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getName</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Namaste JavaScript&quot;</span>);
+}</code></pre><p>in this case the memory would something like this:</p>
+<pre class="hljs"><code>{
+  <span class="hljs-attr">getName</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getName</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Namaste JavaScript&quot;</span>);
+  },
+  <span class="hljs-attr">x</span>: <span class="hljs-literal">undefined</span>
 }</code></pre><h3 id="difference-between-undefined-and-not-defined"><a class="header-link" href="#difference-between-undefined-and-not-defined"></a>Difference between undefined and not defined</h3>
 <ul class="list">
 <li><p><strong>undefined</strong> is a special value in JS which is assigned to a variable which is not assigned any value. It is a special value which is assigned by JS engine. this simply means that the variable is present within the code but you are accessing it before it is assigned any value.</p>
@@ -231,6 +250,8 @@ alt="Shortest JS Program, window & this keyword Youtube Link"/></a></p>
 </li>
 <li><p>Not Defined !== Undefined</p>
 </li>
+<li><p>Undefined is just a placeholder, which is assigned to the variable just for the time being until the value is assigned.</p>
+</li>
 </ul>
 <blockquote>
 <p>When variable is declared but not assigned value, its current value is <strong>undefined</strong>. But when the variable itself is not declared but called in code, then it is <strong>not defined</strong>.</p>
@@ -239,8 +260,8 @@ alt="Shortest JS Program, window & this keyword Youtube Link"/></a></p>
 <span class="hljs-keyword">var</span> x = <span class="hljs-number">25</span>;
 <span class="hljs-built_in">console</span>.log(x); <span class="hljs-comment">// 25</span>
 <span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">// Uncaught ReferenceError: a is not defined</span></code></pre><ul class="list">
-<li>JS is a <strong>loosely typed / weakly typed</strong> language. It doesn&#39;t attach variables to any datatype. We can say <em>var a = 5</em>, and then change the value to boolean <em>a = true</em> or string <em>a = &#39;hello&#39;</em> later on.</li>
-<li><strong>Never</strong> assign <em>undefined</em> to a variable manually. Let it happen on it&#39;s own accord.</li>
+<li>JS is a <strong>loosely typed / weakly typed</strong> language. It doesn&#39;t attach variables to any datatype. We can say <em>var a = 5</em>, and then change the value to boolean <em>a = true</em> or string <em>a = &#39;hello&#39;</em> later on for the same variable.</li>
+<li>You can assign the <em>undefined</em> value to any variable within the JS but <strong>Never</strong> assign <em>undefined</em> manually. Let it happen on it&#39;s own accord as it&#39;s a bad practice which may lead to a lot of inconsistencies.</li>
 </ul>
 <hr>
 

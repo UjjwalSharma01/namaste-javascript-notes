@@ -1,15 +1,30 @@
-# Episode 2 : How JS is executed & Call Stack
+# Episode 2: How JavaScript is Executed & Call Stack
 
-- When a JS program is ran, a **global execution context** is created.
+## What You'll Learn 🎯
+- How JavaScript creates and manages execution contexts
+- The two phases of execution context creation
+- Call Stack and how it manages execution order
 
-- The execution context is created in two phases.
+---
 
-  - Memory creation phase - JS will allocate memory to variables and functions.
-  - Code execution phase
+## Understanding Execution Context 📚
 
-- Let's consider the below example and its code execution steps:
+When a JavaScript program runs, a **Global Execution Context** is created automatically.
 
-```js
+### How Execution Context Works
+
+| Phase | Description | What Happens |
+|-------|-------------|--------------|
+| **1. Memory Creation Phase** | Allocates memory to variables and functions | • Variables get `undefined`<br>• Functions get their complete code |
+| **2. Code Execution Phase** | Executes code line by line | • Variables get their actual values<br>• Functions are invoked |
+
+---
+
+## Let's See This in Action 💻
+
+Let's trace through this code step by step:
+
+```javascript
 var n = 2;
 function square(num) {
   var ans = num * num;
@@ -19,49 +34,156 @@ var square2 = square(n);
 var square4 = square(4);
 ```
 
-The very **first** thing which JS does is **memory creation phase**, so it goes to line one of above code snippet, and **allocates a memory space** for variable **'n'** and then goes to line two, and **allocates a memory space** for **function 'square'**. When allocating memory **for n it stores 'undefined'**, a special value for 'n'. **For 'square', it stores the whole code (as ) of the function inside its memory space.** Then, as square2 and square4 are variables as well, it allocates memory and stores 'undefined' for them, and this is the end of first phase i.e. memory creation phase.
+## Breaking Down the Execution 🔍
 
-So O/P will look something like
+### Phase 1: Memory Creation Phase 🧠
 
-![Execution Context Phase 1](/assets/phase1.jpg "Execution Context")
+JavaScript first scans through the entire code and allocates memory:
 
-Now, in **2nd phase** i.e. code execution phase, it starts going through the whole code line by line. As it encounters var n = 2, it assigns 2 to 'n'. Until now, the value of 'n' was undefined. For function, there is nothing to execute. As these lines were already dealt with in memory creation phase.
+| Line | Variable/Function | Memory Allocation |
+|------|------------------|-------------------|
+| `var n = 2;` | `n` | `undefined` |
+| `function square(num) {...}` | `square` | Complete function code |
+| `var square2 = square(n);` | `square2` | `undefined` |
+| `var square4 = square(4);` | `square4` | `undefined` |
 
-Coming to line 6 i.e. **var square2 = square(n)**, here **functions are a bit different than any other language. A new execution context is created altogether.** Again in this new execution context, in memory creation phase, we allocate memory to num and ans the two variables. And undefined is placed in them. Now, in code execution phase of this execution context, first 2 is assigned to num. Then var ans = num \* num will store 4 in ans. After that, return ans returns the control of program back to where this function was invoked from.
+**Memory State After Phase 1:**
 
-![Execution Context Phase 2](/assets/phase2.jpg "Execution Context")
+![Execution Context Phase 1](/assets/phase1.jpg "Execution Context Phase 1")
 
-When **return** keyword is encountered, It returns the control to the called line and also **the function execution context is deleted**.
-Same thing will be repeated for square4 and then after that is finished, the global execution context will be destroyed.
-So the **final diagram** before deletion would look something like:
+### Phase 2: Code Execution Phase ⚡
 
-![Execution Context Phase 2](/assets/final_execution_context.jpg "Execution Context")
+Now JavaScript executes the code line by line:
 
-- Javascript manages code execution context creation and deletion with the the help of **Call Stack**.
+#### Line 1: `var n = 2;`
+- ✅ Assigns value `2` to variable `n` (replaces `undefined`)
 
-- Call Stack is a mechanism to keep track of its place in script that calls multiple function.
+#### Line 2-5: `function square(num) {...}`
+- ⏭️ Nothing to execute (function already stored in memory)
 
-- __Call Stack maintains the order of execution of execution contexts__. It is also known as Program Stack, Control Stack, Runtime stack, Machine Stack, Execution context stack.
+#### Line 6: `var square2 = square(n);`
 
-![Call Stack](/assets/CallStack.jpg "Call Stack")
+> **Something Important Happens Here! 🚀**
+
+When a function is called, JavaScript creates a **new Local Execution Context** (also called Function Execution Context). **Functions are a bit different than any other language** - a new execution context is created altogether:
+
+**Memory Creation Phase (for square function):**
+- `num` → `undefined`
+- `ans` → `undefined`
+
+**Code Execution Phase (for square function):**
+1. `num` gets value `2` (from parameter `n`)
+2. `ans = num * num` → `ans = 2 * 2` → `ans = 4`
+3. `return ans` → returns `4` and **destroys** this execution context
+
+> **Remember:** When the **return** keyword is encountered, it returns the control to the called line and also **the function execution context is deleted**.
+
+**Memory State During Function Execution:**
+
+![Execution Context Phase 2](/assets/phase2.jpg "Execution Context Phase 2")
+
+#### Line 7: `var square4 = square(4);`
+- Same process repeats with parameter value `4`
+- Result: `square4 = 16`
+
+**Final Memory State:**
+
+![Final Execution Context](/assets/final_execution_context.jpg "Final Execution Context")
+
+---
+
+## 📚 Understanding Call Stack
+
+### 🤔 What is Call Stack?
+The **Call Stack** is JavaScript's way of managing execution contexts and keeping track of function calls.
+
+### ⚡ Key Things to Know:
+- **LIFO (Last In, First Out)** principle
+- Tracks execution order
+- Manages memory allocation and cleanup
+- Prevents infinite recursion
+
+### 📊 How Call Stack Works
+
 ```
-Call Stack
-|-------------------|
-|                   |
-|                   |
-|                   |
-|                   |
-|                   |
-|-------------------|
-|     Square 2      | // this will get executed first and once done will be removed from stack
-|-------------------|
-|global exec contxt |
-|-------------------|
+Call Stack (LIFO Structure)
+┌─────────────────────────┐
+│                         │ ← Empty slots
+│                         │
+│                         │
+│                         │
+├─────────────────────────┤
+│     square(4)           │ ← Executes first, removed first
+├─────────────────────────┤
+│     square(n)           │ ← Added first, still waiting
+├─────────────────────────┤
+│  Global Execution       │ ← Base context (always present)
+│     Context             │
+└─────────────────────────┘
 ```
 
-<hr>
+### 🔄 Execution Flow:
+1. **Global Execution Context** is pushed to stack
+2. When `square(n)` is called → **New context** pushed to stack
+3. When `square(n)` returns → **Context is popped** from stack
+4. When `square(4)` is called → **New context** pushed to stack
+5. When `square(4)` returns → **Context is popped** from stack
+6. Finally, **Global context** is destroyed when program ends
 
-Watch Live On Youtube below:
+---
+
+## 📝 Other Names for Call Stack
+- Program Stack
+- Control Stack  
+- Runtime Stack
+- Machine Stack
+- Execution Context Stack
+
+---
+
+## 📋 Quick Summary
+
+### 💡 What We Learned:
+
+#### **1. Execution Context Creation**
+- **Global Execution Context** is created when JS program runs
+- Every **function call** creates a new **Local Execution Context**
+- Each context has **2 phases**: Memory Creation → Code Execution
+
+#### **2. Memory Creation Phase**
+- Variables are allocated memory and assigned `undefined`
+- Functions are stored with their complete code
+- No code execution happens in this phase
+
+#### **3. Code Execution Phase** 
+- Variables get their actual values
+- Functions create new execution contexts when called
+- `return` statement destroys the function's execution context
+
+#### **4. Call Stack Management**
+- **LIFO (Last In, First Out)** structure
+- Tracks execution order of all contexts
+- Global context stays at bottom, function contexts stack on top
+- Contexts are **pushed** when called, **popped** when returned
+
+### 🧠 Quick Memory Aid:
+```
+JavaScript Execution = Global Context + Function Contexts
+Each Context = Memory Phase + Execution Phase  
+Call Stack = Context Manager (LIFO)
+Return = Context Destruction
+```
+
+### 🎯 Where You'll Use This:
+Understanding execution contexts and call stack helps with:
+- **Debugging** code execution flow
+- **Understanding** variable scope and hoisting
+- **Preventing** stack overflow errors
+- **Optimizing** function performance
+
+---
+
+## 🎥 Watch the Video
 
 <a href="https://www.youtube.com/watch?v=iLWTnMzWtj4&t=1s&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/iLWTnMzWtj4/0.jpg" width="750"
 alt="How JS is executed & Call Stack Youtube Link"/></a>
