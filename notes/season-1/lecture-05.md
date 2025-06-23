@@ -188,6 +188,44 @@ Understanding global objects helps with:
 - **Working** with different JavaScript environments
 - **Avoiding** global namespace pollution
 
+### ⚠️ **Important: Avoiding Global Namespace Pollution**
+
+**What is Global Namespace Pollution?**
+- Adding too many variables to the global scope (window object)
+- Can cause naming conflicts with other scripts/libraries
+- Makes code harder to debug and maintain
+
+**Example of Pollution:**
+```javascript
+// ❌ Bad: Polluting global scope
+var userName = "John";
+var userAge = 25;
+var userEmail = "john@example.com";
+var calculateTax = function() { /* logic */ };
+var formatDate = function() { /* logic */ };
+
+// Now window has: window.userName, window.userAge, etc.
+// Risk of conflicts with other scripts!
+```
+
+**Better Approach:**
+```javascript
+// ✅ Good: Using objects/modules to contain variables
+const App = {
+  user: {
+    name: "John",
+    age: 25,
+    email: "john@example.com"
+  },
+  utils: {
+    calculateTax: function() { /* logic */ },
+    formatDate: function() { /* logic */ }
+  }
+};
+
+// Only one global variable: App
+```
+
 ---
 
 ## 🎥 Watch the Video

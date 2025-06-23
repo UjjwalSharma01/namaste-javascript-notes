@@ -96,6 +96,106 @@ var getName = function() {
 
 ---
 
+## 🎯 When to Use Function Declarations vs Expressions
+
+### 🤔 **Why Does This Difference Matter?**
+
+Understanding when to use each type is crucial for writing predictable code:
+
+### ✅ **Use Function Declarations When:**
+
+#### **1. You Need Hoisting (Call Before Declaration):**
+```javascript
+// ✅ Works: Function available throughout entire scope
+calculateTotal(); // Works fine!
+
+function calculateTotal() {
+  return price * quantity;
+}
+```
+
+#### **2. Creating Main/Core Functions:**
+```javascript
+// ✅ Good for main application functions
+function initApp() { /* startup logic */ }
+function handleUserLogin() { /* login logic */ }
+function processPayment() { /* payment logic */ }
+```
+
+#### **3. Recursive Functions:**
+```javascript
+// ✅ Function can call itself by name
+function factorial(n) {
+  if (n <= 1) return 1;
+  return n * factorial(n - 1); // Self-reference works
+}
+```
+
+### ✅ **Use Function Expressions When:**
+
+#### **1. Conditional Function Creation:**
+```javascript
+// ✅ Create functions based on conditions
+let calculator;
+if (advancedMode) {
+  calculator = function(a, b) { 
+    return a * b + Math.pow(a, 2); 
+  };
+} else {
+  calculator = function(a, b) { 
+    return a * b; 
+  };
+}
+```
+
+#### **2. Callback Functions:**
+```javascript
+// ✅ Perfect for event handlers and callbacks
+button.addEventListener('click', function() {
+  console.log('Button clicked!');
+});
+
+// ✅ Array methods
+numbers.map(function(num) { return num * 2; });
+```
+
+#### **3. Avoiding Global Scope Pollution:**
+```javascript
+// ✅ Function expression doesn't pollute global scope
+const utils = {
+  format: function(text) { return text.toUpperCase(); },
+  validate: function(email) { return email.includes('@'); }
+};
+```
+
+#### **4. Modules and Encapsulation:**
+```javascript
+// ✅ Creating private functions
+const myModule = (function() {
+  const privateFunction = function() {
+    console.log("This is private");
+  };
+  
+  return {
+    publicMethod: function() {
+      privateFunction(); // Can call private function
+    }
+  };
+})();
+```
+
+### 📊 **Quick Decision Guide:**
+
+| Need | Use | Why |
+|------|-----|-----|
+| **Call before declaration** | Function Declaration | Hoisting works |
+| **Conditional creation** | Function Expression | More flexible |
+| **Callbacks/Event handlers** | Function Expression | Cleaner syntax |
+| **Main app functions** | Function Declaration | More readable |
+| **Private functions** | Function Expression | Better encapsulation |
+
+---
+
 ## 🧠 Memory Allocation Example
 
 Let's see how memory is allocated in the execution context:
@@ -121,6 +221,64 @@ function getName() {
 
 ---
 
+## 🎭 Variable Shadowing in Hoisting
+
+### 📚 What is Variable Shadowing?
+**Variable Shadowing** occurs when a local variable has the same name as a variable in an outer scope, effectively "hiding" or "shadowing" the outer variable.
+
+```javascript
+var name = "Global John";
+
+function greetUser() {
+  console.log(name); // undefined (NOT "Global John")
+  var name = "Local Jane";
+  console.log(name); // "Local Jane"
+}
+
+greetUser();
+console.log(name); // "Global John"
+```
+
+### 🤔 Why Does This Happen?
+
+**During Memory Creation Phase:**
+```javascript
+// Global Execution Context
+{
+  name: undefined,
+  greetUser: function
+}
+
+// greetUser() Execution Context  
+{
+  name: undefined, // ← This shadows the global 'name'
+}
+```
+
+**During Execution Phase:**
+1. `console.log(name)` finds local `name` (which is `undefined`)
+2. Local `name` gets assigned `"Local Jane"`
+3. `console.log(name)` prints `"Local Jane"`
+
+### 💡 Key Insights:
+- **Hoisting happens per scope** - each execution context has its own memory creation phase
+- **Local variables shadow global ones** even during hoisting
+- **JavaScript always looks in local scope first**
+
+### ⚠️ Common Gotcha:
+```javascript
+var x = 1;
+function test() {
+  console.log(x); // undefined (not 1!)
+  var x = 2;
+}
+test();
+```
+
+Even though `var x = 2` comes after `console.log(x)`, the hoisting of `var x` in the function scope shadows the global `x`.
+
+---
+
 ## ⚡ Understanding `undefined` vs `not defined`
 
 | Term | Meaning | Example |
@@ -131,6 +289,20 @@ function getName() {
 ### 📝 Simple Explanation:
 - **undefined** = "Hey, I know this variable exists, but it doesn't have a value yet"
 - **not defined** = "Sorry, I've never heard of this variable"
+
+### 🔍 Type Coercion with `undefined`:
+```javascript
+console.log(undefined + 5); // NaN
+console.log(undefined == null); // true
+console.log(undefined === null); // false
+console.log(typeof undefined); // "undefined"
+```
+
+**Why This Matters:**
+- `undefined + 5` = `NaN` because `undefined` can't be converted to a number
+- `undefined == null` is `true` (special case in JavaScript)
+- `undefined === null` is `false` (different types)
+- Always use `typeof` to safely check for `undefined`
 
 ---
 

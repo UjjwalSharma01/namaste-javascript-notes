@@ -11,6 +11,13 @@
 
 ## 🔗 Core Concept
 
+### 📚 What is Scope?
+**Scope** means **where you can access a function or a variable** in your code.
+
+second perspective 
+
+if a particular variable __is in the scope of a function__
+
 **Scope** in JavaScript is directly related to **Lexical Environment**.
 
 ---
@@ -122,6 +129,7 @@ GEC = [
 ```
 
 ### 📊 Visual Representation:
+> The orange thing in the diagrams is the **reference to the lexical environment of its parent**.
 
 ![Lexical Scope Explanation](/assets/lexical.jpg "Lexical Scope")
 ![Lexical Scope Explanation](/assets/lexical2.jpg "Lexical Scope")
@@ -130,9 +138,27 @@ GEC = [
 
 ## 🌍 Understanding Lexical Environment
 
+### ⚡ Lexical Environment Creation
+**Whenever an Execution Context is created, a Lexical Environment is also created along with it.**
+
 ### 🔗 What is Lexical Environment?
 
-**Lexical Environment** = **Local Memory** + **Lexical Environment of its Parent**
+**Lexical Environment** = **Local Memory** + **Reference to lexical Environment of its Parent**
+
+### 🏢 Understanding "Lexically Inside"
+If you look at the code example:
+```javascript
+function a() {
+  function c() {
+    // c is lexically inside function a
+  }
+}
+// function a is lexically inside global scope
+```
+
+- Function `c` is **lexically inside** function `a`
+- Function `a` is **lexically inside** the **global scope**
+- This physical nesting determines the scope chain
 
 ### 📚 Key Points:
 - **Lexical** means "in hierarchy, in order"

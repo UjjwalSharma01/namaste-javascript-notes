@@ -130,6 +130,33 @@ Call Stack (LIFO Structure)
 5. When `square(4)` returns → **Context is popped** from stack
 6. Finally, **Global context** is destroyed when program ends
 
+### 🎯 **Why LIFO Matters - Practical Implications:**
+
+**LIFO (Last In, First Out) is crucial for:**
+
+#### **🐛 Debugging:**
+```javascript
+function a() {
+  b(); // If error occurs in b(), stack trace shows: b() → a() → global
+}
+function b() {
+  c(); // If error occurs in c(), stack trace shows: c() → b() → a() → global  
+}
+function c() {
+  throw new Error("Something broke!");
+}
+```
+
+#### **🔄 Function Return Order:**
+- Nested functions must complete before their parent functions can continue
+- This ensures proper cleanup and variable scope management
+- Prevents memory leaks and maintains execution integrity
+
+#### **📊 Memory Management:**
+- Each function's variables are cleaned up when it's removed from stack
+- LIFO ensures proper memory deallocation order
+- Parent functions wait for child functions to complete before cleaning up
+
 ---
 
 ## 📝 Other Names for Call Stack
