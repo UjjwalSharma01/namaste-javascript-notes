@@ -82,6 +82,30 @@ var b = 15;
 - **var**: Hoisted + Immediately accessible + Global scope attachment
 - **let/const**: Hoisted + Temporal Dead Zone + Script scope (no global attachment)
 
+### 💡 Practical Examples of the Differences:
+
+```javascript
+// Example 1: Global scope attachment
+var globalVar = "I'm attached to window";
+let scriptVar = "I'm in script scope";
+const scriptConst = "I'm also in script scope";
+
+console.log(window.globalVar);  // ✅ "I'm attached to window"
+console.log(window.scriptVar);  // ✅ undefined (not attached)
+console.log(window.scriptConst); // ✅ undefined (not attached)
+```
+
+```javascript
+// Example 2: Hoisting behavior comparison
+console.log(hoistedVar);   // ✅ undefined
+console.log(hoistedLet);   // ❌ ReferenceError: Cannot access 'hoistedLet' before initialization
+console.log(hoistedConst); // ❌ ReferenceError: Cannot access 'hoistedConst' before initialization
+
+var hoistedVar = "var value";
+let hoistedLet = "let value";
+const hoistedConst = "const value";
+```
+
 ---
 
 ## ⏰ Understanding Temporal Dead Zone
@@ -93,6 +117,31 @@ var b = 15;
 - Any line before `let a = 10` is the **TDZ for variable `a`**
 - During TDZ, the variable exists in memory but cannot be accessed
 - Accessing it during TDZ throws a **ReferenceError**
+
+### 💡 More TDZ Examples:
+
+```javascript
+// Example 1: Basic TDZ
+console.log(name); // ❌ ReferenceError: Cannot access 'name' before initialization
+let name = "John";
+console.log(name); // ✅ "John"
+```
+
+```javascript
+// Example 2: TDZ with function
+function checkTDZ() {
+    console.log(age); // ❌ ReferenceError: Cannot access 'age' before initialization
+    let age = 25;
+    return age;
+}
+```
+
+```javascript
+// Example 3: No TDZ with var
+console.log(city); // ✅ undefined (no error, just undefined)
+var city = "Mumbai";
+console.log(city); // ✅ "Mumbai"
+```
 
 ### 🌍 Global Object Access:
 - `window.b` or `this.b` → `15` (var variables attach to global object)
@@ -109,6 +158,31 @@ var b = 15;
 | **Reference Error** | Variables in Temporal Dead Zone | Code runs but stops at error |
 | **Syntax Error** | Invalid syntax detected | Code doesn't run at all |
 | **Type Error** | Wrong operation on a value | Code runs but stops at error |
+
+### 💡 Quick Examples of Each Error Type:
+
+```javascript
+// Reference Error Examples:
+console.log(undeclaredVar);     // ❌ ReferenceError: undeclaredVar is not defined
+console.log(letVar);            // ❌ ReferenceError: Cannot access 'letVar' before initialization
+let letVar = 10;
+```
+
+```javascript
+// Syntax Error Examples:
+let name = "John";
+let name = "Jane";              // ❌ SyntaxError: Identifier 'name' has already been declared
+// Note: Code won't even start running!
+```
+
+```javascript
+// Type Error Examples:
+const obj = { name: "John" };
+obj = { name: "Jane" };         // ❌ TypeError: Assignment to constant variable
+
+const func = null;
+func();                         // ❌ TypeError: func is not a function
+```
 
 ### 🔴 Reference Error Examples:
 
@@ -136,6 +210,30 @@ a = 10;       // ✅ Assignment later is allowed
 console.log(a); // 10
 ```
 
+### 💡 More Let Examples:
+
+```javascript
+// Example 1: Let allows reassignment
+let score = 100;
+score = 200;        // ✅ Allowed
+console.log(score); // 200
+```
+
+```javascript
+// Example 2: Let has block scope
+if (true) {
+    let blockVar = "I'm in block";
+    console.log(blockVar); // ✅ "I'm in block"
+}
+console.log(blockVar); // ❌ ReferenceError: blockVar is not defined
+```
+
+```javascript
+// Example 3: Let redeclaration not allowed
+let username = "user1";
+let username = "user2"; // ❌ SyntaxError: Identifier 'username' has already been declared
+```
+
 ### 🔒 Const: Stricter than let
 
 ```javascript
@@ -147,6 +245,35 @@ console.log(b);
 ```javascript
 const b = 100;  // ✅ Declaration with initialization
 b = 1000;       // ❌ TypeError: Assignment to constant variable
+```
+
+> **🚨 Important:** `const` variables **must be initialized on the same line** where they are declared. You cannot declare a `const` variable and assign a value to it later - this is a fundamental requirement of `const` declarations.
+
+### 💡 More Const Examples:
+
+```javascript
+// Example 1: Const must be initialized immediately
+const PI = 3.14159;  // ✅ Correct way
+console.log(PI);     // 3.14159
+```
+
+```javascript
+// Example 2: Const with objects (reference is constant, not content)
+const user = { name: "John", age: 30 };
+user.age = 31;       // ✅ Allowed - modifying object properties
+user.city = "NYC";   // ✅ Allowed - adding new properties
+console.log(user);   // { name: "John", age: 31, city: "NYC" }
+
+user = { name: "Jane" }; // ❌ TypeError: Assignment to constant variable
+```
+
+```javascript
+// Example 3: Const with arrays (similar behavior)
+const fruits = ["apple", "banana"];
+fruits.push("orange");   // ✅ Allowed - modifying array content
+console.log(fruits);     // ["apple", "banana", "orange"]
+
+fruits = ["grape"];      // ❌ TypeError: Assignment to constant variable
 ```
 
 ### 📊 Comparison Table:
