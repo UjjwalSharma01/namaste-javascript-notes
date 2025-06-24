@@ -720,10 +720,3 @@ Understanding async/await thoroughly prepares you for advanced topics like gener
 
 <a href="https://www.youtube.com/watch?v=6nv3qy3oNkc&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/6nv3qy3oNkc/0.jpg" width="750"
 alt="async-await in Javascript Youtube Link"/></a>
-
-<hr>
-
-Watch Live On Youtube below:
-
-<a href="https://www.youtube.com/watch?v=6nv3qy3oNkc&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/6nv3qy3oNkc/0.jpg" width="750"
-alt="async-await in Javascript Youtube Link"/></a>

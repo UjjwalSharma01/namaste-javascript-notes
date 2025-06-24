@@ -601,10 +601,3 @@ Understanding Promises is crucial for mastering modern JavaScript async patterns
 
 <a href="https://www.youtube.com/watch?v=ap-6PPAuK1Y&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=3&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/ap-6PPAuK1Y/0.jpg" width="750"
 alt="promise in Javascript Youtube Link"/></a>
-
-<hr>
-
-Watch Live On Youtube below:
-
-<a href="https://www.youtube.com/watch?v=ap-6PPAuK1Y&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=3&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/ap-6PPAuK1Y/0.jpg" width="750"
-alt="promise in Javascript Youtube Link"/></a>

@@ -1,6 +1,6 @@
 # Episode 25 : `this` keyword in JavaScript
 
-## 📚 What You'll Learn
+## 🎯 What You'll Learn
 
 By the end of this lecture, you'll master:
 
@@ -1108,13 +1108,6 @@ user.on('login', function(data) {
 ---
 
 ## 🎥 Watch the Video
-
-<a href="https://www.youtube.com/watch?v=9T4z98JcHR0&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/9T4z98JcHR0/0.jpg" width="750"
-alt="this keyword in Javascript Youtube Link"/></a>
-
-<hr>
-
-Watch Live On Youtube below:
 
 <a href="https://www.youtube.com/watch?v=9T4z98JcHR0&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/9T4z98JcHR0/0.jpg" width="750"
 alt="this keyword in Javascript Youtube Link"/></a>
