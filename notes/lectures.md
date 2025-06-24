@@ -6568,13 +6568,6 @@ All = Higher-Order Functions (take functions as arguments)
 <a href="https://www.youtube.com/watch?v=zdp0zrpKzIE&list=PLlasXeu85E9cQ32gLCvAvr9vNaUccPVNP" target="_blank"><img src="https://img.youtube.com/vi/zdp0zrpKzIE/0.jpg" width="750"
 alt="map, filter & reduce Youtube Link"/></a>
 
-<hr>
-
-Watch Live On Youtube below:
-
-<a href="https://www.youtube.com/watch?v=zdp0zrpKzIE&list=PLlasXeu85E9cQ32gLCvAvr9vNaUccPVNP" target="_blank"><img src="https://img.youtube.com/vi/zdp0zrpKzIE/0.jpg" width="750"
-alt="map, filter & reduce Youtube Link"/></a>
-
 
 # Episode 20: Callback
 
@@ -7132,13 +7125,6 @@ Understanding these callback problems is **crucial preparation** for learning **
 ---
 
 ## 🎥 Watch the Video
-
-<a href="https://www.youtube.com/watch?v=yEKtJGha3yM&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX" target="_blank"><img src="https://img.youtube.com/vi/yEKtJGha3yM/0.jpg" width="750"
-alt="callback Youtube Link"/></a>
-
-<hr>
-
-Watch Live On Youtube below:
 
 <a href="https://www.youtube.com/watch?v=yEKtJGha3yM&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX" target="_blank"><img src="https://img.youtube.com/vi/yEKtJGha3yM/0.jpg" width="750"
 alt="callback Youtube Link"/></a>
@@ -7744,13 +7730,6 @@ Understanding Promises is crucial for mastering modern JavaScript async patterns
 ---
 
 ## 🎥 Watch the Video
-
-<a href="https://www.youtube.com/watch?v=ap-6PPAuK1Y&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=3&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/ap-6PPAuK1Y/0.jpg" width="750"
-alt="promise in Javascript Youtube Link"/></a>
-
-<hr>
-
-Watch Live On Youtube below:
 
 <a href="https://www.youtube.com/watch?v=ap-6PPAuK1Y&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=3&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/ap-6PPAuK1Y/0.jpg" width="750"
 alt="promise in Javascript Youtube Link"/></a>
@@ -8421,13 +8400,6 @@ Understanding Promise creation and chaining prepares you for learning async/awai
 ---
 
 ## 🎥 Watch the Video
-
-<a href="https://www.youtube.com/watch?v=U74BJcr8NeQ&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/U74BJcr8NeQ/0.jpg" width="750"
-alt="promise in Javascript Youtube Link"/></a>
-
-<hr>
-
-Watch Live On Youtube below:
 
 <a href="https://www.youtube.com/watch?v=U74BJcr8NeQ&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/U74BJcr8NeQ/0.jpg" width="750"
 alt="promise in Javascript Youtube Link"/></a>
@@ -9156,17 +9128,10 @@ Understanding async/await thoroughly prepares you for advanced topics like gener
 <a href="https://www.youtube.com/watch?v=6nv3qy3oNkc&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/6nv3qy3oNkc/0.jpg" width="750"
 alt="async-await in Javascript Youtube Link"/></a>
 
-<hr>
-
-Watch Live On Youtube below:
-
-<a href="https://www.youtube.com/watch?v=6nv3qy3oNkc&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/6nv3qy3oNkc/0.jpg" width="750"
-alt="async-await in Javascript Youtube Link"/></a>
-
 
 # Episode 24 : Promise APIs (all, allSettled, race, any) + Interview Questions 🔥
 
-## 📚 What You'll Learn
+## 🎯 What You'll Learn
 
 By the end of this lecture, you'll master:
 
@@ -10342,17 +10307,10 @@ Understanding these Promise APIs thoroughly prepares you for:
 <a href="https://www.youtube.com/watch?v=DlTVt1rZjIo&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/DlTVt1rZjIo/0.jpg" width="750"
 alt="Promise APIs in Javascript Youtube Link"/></a>
 
-<hr>
-
-Watch Live On Youtube below:
-
-<a href="https://www.youtube.com/watch?v=DlTVt1rZjIo&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/DlTVt1rZjIo/0.jpg" width="750"
-alt="Promise APIs in Javascript Youtube Link"/></a>
-
 
 # Episode 25 : `this` keyword in JavaScript
 
-## 📚 What You'll Learn
+## 🎯 What You'll Learn
 
 By the end of this lecture, you'll master:
 
@@ -11460,13 +11418,6 @@ user.on('login', function(data) {
 ---
 
 ## 🎥 Watch the Video
-
-<a href="https://www.youtube.com/watch?v=9T4z98JcHR0&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/9T4z98JcHR0/0.jpg" width="750"
-alt="this keyword in Javascript Youtube Link"/></a>
-
-<hr>
-
-Watch Live On Youtube below:
 
 <a href="https://www.youtube.com/watch?v=9T4z98JcHR0&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/9T4z98JcHR0/0.jpg" width="750"
 alt="this keyword in Javascript Youtube Link"/></a>
