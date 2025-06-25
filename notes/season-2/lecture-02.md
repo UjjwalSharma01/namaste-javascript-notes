@@ -15,7 +15,10 @@
 
 ### 📚 **What are Promises?**
 
-> **Promises are used to handle async operations in JavaScript.**
+> **Promises are used to handle async operations in JavaScript.**  
+> **PROMISE OBJECTS ARE IMMUTABLE and now you have control over the data as well other than the function**
+
+🚀 _Interview Definition (Akshay Sir)_- Promise is an object that represents the eventual completion of an Asynchronous Operation 
 
 Promises provide a powerful solution to the callback problems we discussed in the previous lecture, offering a cleaner and more reliable way to manage asynchronous code.
 
