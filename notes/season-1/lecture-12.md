@@ -17,6 +17,9 @@
 
 **💡 Answer**: A function along with reference to its outer environment together forms a closure. Or in other words, a closure is a combination of a function and its lexical scope bundled together.
 
+OR
+Function along with it's lexical environment is known as a closure.
+
 ```javascript
 function outer() {
   var a = 10;
